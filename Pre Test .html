@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pengenalan kepada Microsoft PowerPoint</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f2f5;
+            margin: 0;
+            padding: 0;
+            color: #333;
+            transition: background-color 0.5s;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .header {
+            text-align: center;
+            padding: 20px;
+            background: linear-gradient(135deg, #fd7e14, #e83e8c);
+            color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+        .game-container {
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .question-container {
+            margin-bottom: 20px;
+        }
+        .options-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .option-btn {
+            padding: 15px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 500;
+            background-color: #f0f0f0;
+            transition: all 0.3s;
+        }
+        .option-btn:hover {
+            background-color: #e0e0e0;
+            transform: translateY(-2px);
+        }
+        .correct {
+            background-color: #28a745 !important;
+            color: white;
+        }
+        .incorrect {
+            background-color: #dc3545 !important;
+            color: white;
+        }
+        .feedback {
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: none;
+        }
+        .next-btn, .start-btn, .restart-btn {
+            padding: 12px 25px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 500;
+            display: block;
+            margin: 0 auto;
+            transition: all 0.3s;
+        }
+        .next-btn:hover, .start-btn:hover, .restart-btn:hover {
+            background-color: #0069d9;
+            transform: translateY(-2px);
+        }
+        .progress-container {
+            width: 100%;
+            background-color: #e0e0e0;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        .progress-bar {
+            height: 10px;
+            background: linear-gradient(90deg, #fd7e14, #e83e8c);
+            border-radius: 5px;
+            width: 0%;
+            transition: width 0.5s;
+        }
+        .score-container {
+            text-align: center;
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+        .result-container {
+            text-align: center;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: none;
+        }
+        .image-container {
+            text-align: center;
+            margin: 20px 0;
+        }
+        .image-container img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .intro-container {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .intro-image {
+            max-width: 200px;
+            margin: 0 auto;
+        }
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: #f06;
+            border-radius: 10px;
+            animation: confetti 5s ease-in-out infinite;
+        }
+        @keyframes confetti {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(600px) rotate(720deg); opacity: 0; }
+        }
+        .hint-btn {
+            background-color: #6c757d;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 8px 15px;
+            margin-top: 10px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        .hint-text {
+            display: none;
+            background-color: #f8f9fa;
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 10px;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Pengenalan kepada Microsoft PowerPoint</h1>
+            <p>Permainan Interaktif untuk Menguji Pengetahuan Anda!</p>
+        </div>
+
+        <div class="game-container" id="game-container">
+            <div class="intro-container" id="intro-screen">
+                <div class="image-container">
+                    <svg class="intro-image" xmlns="http://www.w3.org/2000/svg" width="150" height="150" viewBox="0 0 512 512">
+                        <path fill="#ED6C47" d="M496,96v320c0,26.5-21.5,48-48,48H64c-26.5,0-48-21.5-48-48V96c0-26.5,21.5-48,48-48h384 C474.5,48,496,69.5,496,96z"/>
+                        <path fill="#FF8F6B" d="M496,96v320c0,26.5-21.5,48-48,48H64c-26.5,0-48-21.5-48-48V96c0-26.5,21.5-48,48-48h384 C474.5,48,496,69.5,496,96z"/>
+                        <path fill="#D35230" d="M496,96v320c0,26.5-21.5,48-48,48H64c-26.5,0-48-21.5-48-48V96c0-26.5,21.5-48,48-48h384 C474.5,48,496,69.5,496,96z"/>
+                        <rect x="64" y="128" fill="#FFFFFF" width="384" height="256"/>
+                        <path fill="#FFFFFF" d="M116,376H76c-6.6,0-12-5.4-12-12V148c0-6.6,5.4-12,12-12h40c39.8,0,72,32.2,72,72v96 C188,343.8,155.8,376,116,376z"/>
+                    </svg>
+                </div>
+                <h2>Selamat Datang ke Permainan Pengenalan PowerPoint!</h2>
+                <p>Permainan ini akan menguji pengetahuan anda tentang Microsoft PowerPoint. Jawab soalan dengan betul untuk mendapat markah penuh!</p>
+                <button class="start-btn" id="start-btn">Mula Bermain</button>
+            </div>
+
+            <div id="quiz-screen" style="display: none;">
+                <div class="progress-container">
+                    <div class="progress-bar" id="progress-bar"></div>
+                </div>
+                <div class="score-container">
+                    <p>Markah: <span id="score">0</span>/<span id="total-questions">10</span></p>
+                </div>
+                <div class="question-container">
+                    <h3 id="question-text">Soalan akan dipaparkan di sini</h3>
+                </div>
+                <div class="image-container" id="question-image" style="display: none;">
+                    <!-- Image will be added here by JavaScript -->
+                </div>
+                <div class="options-container" id="options-container">
+                    <!-- Options will be added here by JavaScript -->
+                </div>
+                <div class="feedback" id="feedback">
+                    <!-- Feedback will be added here by JavaScript -->
+                </div>
+                <button class="hint-btn" id="hint-btn">Petunjuk</button>
+                <div class="hint-text" id="hint-text">Petunjuk akan dipaparkan di sini</div>
+                <button class="next-btn" id="next-btn" style="display: none;">Soalan Seterusnya</button>
+            </div>
+
+            <div class="result-container" id="result-screen">
+                <h2>Tahniah!</h2>
+                <p>Anda telah menamatkan permainan dengan markah:</p>
+                <h3><span id="final-score">0</span>/<span id="final-total">10</span></h3>
+                <p id="performance-text">Penilaian prestasi anda akan dipaparkan di sini</p>
+                <button class="restart-btn" id="restart-btn">Main Semula</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Quiz questions
+        const questions = [
+            {
+                question: "Apakah Microsoft PowerPoint?",
+                options: [
+                    "Perisian untuk membuat dokumen teks",
+                    "Perisian untuk membuat persembahan slaid",
+                    "Perisian untuk menganalisis data",
+                    "Perisian untuk menguruskan e-mel"
+                ],
+                answer: 1,
+                hint: "Perisian ini digunakan untuk membuat kandungan visual yang dipersembahkan kepada penonton",
+                image: null
+            },
+            {
+                question: "Apakah ikon yang digunakan untuk Microsoft PowerPoint?",
+                options: [
+                    "Huruf W berwarna biru",
+                    "Huruf P berwarna merah oren",
+                    "Huruf X berwarna hijau",
+                    "Huruf E berwarna biru"
+                ],
+                answer: 1,
+                hint: "Ikon ini berwarna oren-merah",
+                image: null
+            },
+            {
+                question: "Antara berikut, manakah BUKAN merupakan pandangan dalam PowerPoint?",
+                options: [
+                    "Normal",
+                    "Pembentang",
+                    "Penganalisis",
+                    "Pengisih Slaid"
+                ],
+                answer: 2,
+                hint: "Tiga pandangan utama dalam PowerPoint adalah Normal, Pembentang dan Pengisih Slaid",
+                image: null
+            },
+            {
+                question: "Apakah fungsi 'Slide Master' dalam PowerPoint?",
+                options: [
+                    "Menetapkan masa pembentangan",
+                    "Mengawal reka bentuk dan format keseluruhan bagi semua slaid",
+                    "Menyimpan slaid dalam format khusus",
+                    "Memaparkan slaid dalam mod skrin penuh"
+                ],
+                answer: 1,
+                hint: "Fungsi ini membolehkan anda mengubah format keseluruhan tanpa mengubah setiap slaid secara individu",
+                image: null
+            },
+            {
+                question: "Apakah fungsi kekunci pintasan 'F5' dalam PowerPoint?",
+                options: [
+                    "Membuka fail baru",
+                    "Menyimpan fail",
+                    "Memulakan pembentangan dari slaid pertama",
+                    "Mencetak dokumen"
+                ],
+                answer: 2,
+                hint: "Kekunci ini digunakan untuk memulakan sesuatu yang berkaitan dengan pembentangan",
+                image: null
+            },
+            {
+                question: "Bagaimana untuk menambah animasi pada teks atau objek dalam PowerPoint?",
+                options: [
+                    "Tab Insert > Animations",
+                    "Tab Design > Effects",
+                    "Tab Animations > Add Animation",
+                    "Tab View > Animations"
+                ],
+                answer: 2,
+                hint: "Terdapat tab khusus untuk ini dalam reben PowerPoint",
+                image: null
+            },
+            {
+                question: "Apakah ekstensi fail bagi persembahan PowerPoint?",
+                options: [
+                    ".docx",
+                    ".xlsx",
+                    ".pptx",
+                    ".txt"
+                ],
+                answer: 2,
+                hint: "Ekstensi ini mengandungi huruf-huruf 'p' yang berkaitan dengan nama aplikasinya",
+                image: null
+            },
+            {
+                question: "Apakah fungsi 'SmartArt' dalam PowerPoint?",
+                options: [
+                    "Memeriksa ejaan",
+                    "Membuat graf dan carta",
+                    "Membuat grafik visual daripada maklumat teks",
+                    "Menambah kesan khas pada slaid"
+                ],
+                answer: 2,
+                hint: "Fungsi ini membolehkan anda menukar teks menjadi format yang lebih visual dan menarik",
+                image: null
+            },
+            {
+                question: "Manakah antara berikut BUKAN merupakan jenis peralihan slaid dalam PowerPoint?",
+                options: [
+                    "Push",
+                    "Fade",
+                    "Morph",
+                    "Explode"
+                ],
+                answer: 3,
+                hint: "Tiga yang pertama adalah peralihan slaid yang sah dalam PowerPoint",
+                image: null
+            },
+            {
+                question: "Apakah 'Presenter View' dalam PowerPoint?",
+                options: [
+                    "Pandangan yang membolehkan pembentang melihat nota dan slaid seterusnya",
+                    "Pandangan yang membolehkan mengubah tema slaid",
+                    "Pandangan yang membolehkan mengubah warna latar belakang",
+                    "Pandangan yang membolehkan mengedit video"
+                ],
+                answer: 0,
+                hint: "Pandangan ini sangat berguna semasa membuat pembentangan di hadapan penonton",
+                image: null
+            }
+        ];
+
+        // Game variables
+        let currentQuestion = 0;
+        let score = 0;
+        let answeredCorrectly = false;
+
+        // DOM elements
+        const introScreen = document.getElementById('intro-screen');
+        const quizScreen = document.getElementById('quiz-screen');
+        const resultScreen = document.getElementById('result-screen');
+        const startBtn = document.getElementById('start-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const restartBtn = document.getElementById('restart-btn');
+        const questionText = document.getElementById('question-text');
+        const optionsContainer = document.getElementById('options-container');
+        const feedbackElement = document.getElementById('feedback');
+        const scoreElement = document.getElementById('score');
+        const totalQuestionsElement = document.getElementById('total-questions');
+        const finalScoreElement = document.getElementById('final-score');
+        const finalTotalElement = document.getElementById('final-total');
+        const performanceTextElement = document.getElementById('performance-text');
+        const progressBar = document.getElementById('progress-bar');
+        const questionImage = document.getElementById('question-image');
+        const hintBtn = document.getElementById('hint-btn');
+        const hintText = document.getElementById('hint-text');
+
+        // Start the game
+        startBtn.addEventListener('click', startGame);
+        nextBtn.addEventListener('click', loadNextQuestion);
+        restartBtn.addEventListener('click', restartGame);
+        hintBtn.addEventListener('click', showHint);
+
+        // Initialize the game
+        function startGame() {
+            introScreen.style.display = 'none';
+            quizScreen.style.display = 'block';
+            
+            // Set total questions
+            totalQuestionsElement.textContent = questions.length;
+            
+            // Initialize the first question
+            loadQuestion();
+        }
+
+        // Load a question
+        function loadQuestion() {
+            // Reset state
+            answeredCorrectly = false;
+            feedbackElement.style.display = 'none';
+            nextBtn.style.display = 'none';
+            hintText.style.display = 'none';
+            
+            // Update progress bar
+            progressBar.style.width = `${(currentQuestion / questions.length) * 100}%`;
+            
+            // Get current question
+            const question = questions[currentQuestion];
+            questionText.textContent = question.question;
+            
+            // Clear options
+            optionsContainer.innerHTML = '';
+            
+            // Add options
+            question.options.forEach((option, index) => {
+                const button = document.createElement('button');
+                button.className = 'option-btn';
+                button.textContent = option;
+                button.addEventListener('click', () => checkAnswer(index));
+                optionsContainer.appendChild(button);
+            });
+            
+            // Handle image if exists
+            if (question.image) {
+                questionImage.innerHTML = `<img src="${question.image}" alt="Question Image">`;
+                questionImage.style.display = 'block';
+            } else {
+                questionImage.style.display = 'none';
+            }
+        }
+
+        // Check answer
+        function checkAnswer(selectedIndex) {
+            if (answeredCorrectly) return; // Prevent multiple answers
+            
+            const question = questions[currentQuestion];
+            const options = document.querySelectorAll('.option-btn');
+            
+            if (selectedIndex === question.answer) {
+                // Correct answer
+                options[selectedIndex].classList.add('correct');
+                feedbackElement.textContent = "Betul! Tahniah!";
+                feedbackElement.style.backgroundColor = "#d4edda";
+                feedbackElement.style.color = "#155724";
+                feedbackElement.style.display = 'block';
+                score++;
+                scoreElement.textContent = score;
+                answeredCorrectly = true;
+                
+                // Add confetti effect for correct answers
+                createConfetti();
+            } else {
+                // Incorrect answer
+                options[selectedIndex].classList.add('incorrect');
+                options[question.answer].classList.add('correct');
+                feedbackElement.textContent = "Salah! Jawapan yang betul telah dihighlightkan.";
+                feedbackElement.style.backgroundColor = "#f8d7da";
+                feedbackElement.style.color = "#721c24";
+                feedbackElement.style.display = 'block';
+                answeredCorrectly = true;
+                
+                // Change background color for wrong answers
+                document.body.style.backgroundColor = "#fff4f4";
+                setTimeout(() => {
+                    document.body.style.backgroundColor = "#f0f2f5";
+                }, 500);
+            }
+            
+            // Show next button
+            nextBtn.style.display = 'block';
+            
+            // Disable all options
+            options.forEach(option => {
+                option.style.pointerEvents = 'none';
+            });
+        }
+
+        // Load next question
+        function loadNextQuestion() {
+            currentQuestion++;
+            
+            if (currentQuestion < questions.length) {
+                loadQuestion();
+            } else {
+                showResults();
+            }
+        }
+
+        // Show final results
+        function showResults() {
+            quizScreen.style.display = 'none';
+            resultScreen.style.display = 'block';
+            
+            finalScoreElement.textContent = score;
+            finalTotalElement.textContent = questions.length;
+            
+            // Calculate performance
+            const percentage = (score / questions.length) * 100;
+            
+            if (percentage >= 80) {
+                performanceTextElement.textContent = "Tahniah! Anda seorang pakar Microsoft PowerPoint!";
+                createConfetti();
+            } else if (percentage >= 60) {
+                performanceTextElement.textContent = "Bagus! Anda mempunyai pengetahuan asas yang baik tentang PowerPoint.";
+            } else {
+                performanceTextElement.textContent = "Anda boleh meningkatkan pengetahuan tentang PowerPoint dengan lebih banyak latihan.";
+            }
+        }
+
+        // Restart the game
+        function restartGame() {
+            currentQuestion = 0;
+            score = 0;
+            scoreElement.textContent = score;
+            
+            resultScreen.style.display = 'none';
+            quizScreen.style.display = 'block';
+            
+            loadQuestion();
+        }
+
+        // Show hint
+        function showHint() {
+            hintText.textContent = questions[currentQuestion].hint;
+            hintText.style.display = hintText.style.display === 'none' ? 'block' : 'none';
+        }
+
+        // Create confetti effect
+        function createConfetti() {
+            const gameContainer = document.getElementById('game-container');
+            
+            for (let i = 0; i < 50; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                
+                // Random position, color and delay
+                confetti.style.left = Math.random() * 100 + '%';
+                confetti.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 50%)`;
+                confetti.style.animationDelay = Math.random() * 5 + 's';
+                
+                gameContainer.appendChild(confetti);
+                
+                // Remove confetti after animation ends
+                setTimeout(() => {
+                    confetti.remove();
+                }, 5000);
+            }
+        }
+    </script>
+</body>
+</html>
